@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Desafio Técnico - QA Senior</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🚀 Desafio Técnico: Analista de Testes Senior</h1>
+            <div class="badge-container">
+                <span class="badge">Cypress</span>
+                <span class="badge">JavaScript</span>
+                <span class="badge">Page Objects</span>
+                <span class="badge">API Rest</span>
+                <span class="badge">E2E Testing</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>📝 Apresentação da Atividade</h2>
+            <div class="highlight-box">
+                <p>Este projeto representa a entrega técnica para a avaliação de <strong>Analista de Testes
+                        Senior</strong>. O foco central foi o desenvolvimento de uma suíte de testes automatizados para
+                    a plataforma <strong>ServeRest</strong>, abrangendo as camadas de interface (Frontend) e serviços
+                    (API).</p>
+                <p>Como profissional Senior, a arquitetura foi pensada para ser escalável e de fácil manutenção,
+                    aplicando padrões de engenharia de software que garantem a confiabilidade do pipeline de qualidade e
+                    a rápida identificação de regressões.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🏗️ Estratégia e Padrões de Projeto</h2>
+            <ul>
+                <li><strong>Page Objects Pattern (PoP):</strong> Implementado para desacoplar a lógica de teste da
+                    estrutura do HTML, garantindo manutenibilidade.</li>
+                <li><strong>Custom Commands:</strong> Abstração de comportamentos repetitivos para tornar os scripts
+                    mais legíveis e limpos.</li>
+                <li><strong>Data-Driven Testing:</strong> Gerenciamento de massa de dados através de
+                    <code>fixtures</code>, permitindo testes parametrizados.</li>
+                <li><strong>Assertions BDD:</strong> Escrita de asserções claras e semânticas para facilitar o
+                    entendimento dos resultados.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>📋 Cenários Automatizados</h2>
+
+            <h3>💻 Frontend (E2E)</h3>
+            <p>URL: <a href="https://front.serverest.dev/" target="_blank">front.serverest.dev</a></p>
+            <ul>
+                <li><strong>Cadastro de Usuário:</strong> Validação do fluxo crítico de registro.</li>
+                <li><strong>Login e Autenticação:</strong> Testes de acesso e controle de perfil.</li>
+                <li><strong>Gestão de Carrinho:</strong> Fluxo principal de jornada de compra.</li>
+            </ul>
+
+            <h3>🔌 API (Rest)</h3>
+            <p>Swagger: <a href="https://serverest.dev/" target="_blank">serverest.dev</a></p>
+            <ul>
+                <li><strong>Autenticação:</strong> Validação de login e extração de Bearer Token.</li>
+                <li><strong>Gestão de Usuários:</strong> Operações CRUD e validação de contratos.</li>
+                <li><strong>Catálogo de Produtos:</strong> Testes de criação e listagem com autorização.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🚀 Como Executar o Projeto</h2>
+            <h3>Instalação</h3>
+            <pre># Clone o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
+
+# Acesse a pasta e instale as dependências
+cd nome-do-projeto
+npm install</pre>
+
+            <h3>Execução</h3>
+            <pre># Executar em modo Headless (Terminal)
+npx cypress run
+
+# Abrir o Cypress Runner (Interface Gráfica)
+npx cypress open</pre>
+        </section>
+
+        <div class="footer">
+            <p>Desenvolvido por <strong>Leandro Reis</strong></p>
+            <p>Vaga: Analista de Testes Senior | 2026</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
