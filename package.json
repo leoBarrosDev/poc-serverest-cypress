@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/leoBarrosDev/mouts-qa#readme",
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
     "cypress": "^15.15.0"
   }
 }

@@ -1,25 +1,56 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { faker } from '@faker-js/faker'
+import { API_URL } from './constants/api'
+import LoginPage from './pages/LoginPage'
+import AuthService from './services/AuthService'
+import UserService from './services/UsersService'
+
+
+Cypress.Commands.add('login', (email, password) => {
+  LoginPage.login(email, password)
+})
+
+Cypress.Commands.add('interceptLogin', () => {
+
+  cy.intercept(
+    'POST',
+    `${API_URL}/login`
+  ).as('loginRequest')
+})
+
+
+Cypress.Commands.add('loginApi', (email, password) => {
+
+  return AuthService
+    .login(email, password)
+    .then((response) => {
+
+      expect(response.status).to.eq(200)
+
+      return response.body.authorization
+    })
+})
+
+
+Cypress.Commands.add('createUser', (isAdmin = true) => {
+
+  const user = {
+
+    nome: faker.person.fullName(),
+
+    email: faker.internet.email(),
+
+    password: '123456',
+
+    administrador: isAdmin.toString()
+  }
+
+  return UserService
+    .create(user)
+    .then((response) => {
+
+      return {
+        user,
+        response
+      }
+    })
+})
