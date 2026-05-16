@@ -165,15 +165,21 @@ npx cypress run
 ```
 5. No Cypress Test Runner, selecione o arquivo de teste ou a pasta desejada para executar os cenários.
 
-# 📋 Screenshots
-	 O Cypress registra as imagens automaticamente em caso de falhas no teste. Essas imagens são guardadas nesse diretório, muito úteis para inspeção visual de falhas e para documentação do comportamento da aplicação em diferentes cenários. Foram adicionas apenas algumas de forma direta, mesmo na ausência de falhas a título de demonstração.
+---
+
+# 📝 Screenshots
+
+ O Cypress registra as imagens automaticamente em caso de falhas no teste. Essas imagens são guardadas nesse diretório, muito úteis para inspeção visual de falhas e para documentação do comportamento da aplicação em diferentes cenários. Foram adicionas apenas algumas de forma direta, mesmo na ausência de falhas a título de demonstração.
+
+---
 
 # 📋 Vídeos
-	 Este diretório contém gravações em vídeo das execuções dos testes quando a opção de vídeo está habilitada no Cypress. Facilita a análise passo a passo de falhas intermitentes e a revisão do fluxo de testes.
 
-    Nenhum dos dois diretórios acima estão sendo enviados para o repositório remoto.
+ Este diretório contém gravações em vídeo das execuções dos testes quando a opção de vídeo está habilitada no Cypress. Facilita a análise passo a passo de falhas intermitentes e a revisão do fluxo de testes.
 
-
+Nenhum dos dois diretórios acima estão sendo enviados para o repositório remoto.
+	
+---
 
 # 📁 Arquitetura do Projeto
 
