@@ -13,6 +13,17 @@ class ProductService {
             failOnStatusCode: false
         })
     }
+
+    list(token) {
+        return cy.request({
+            method: 'GET',
+            url: `${API_URL}/produtos`,
+            headers: {
+                Authorization: token
+            },
+            failOnStatusCode: false
+        })
+    }
 }
 
 export default new ProductService()

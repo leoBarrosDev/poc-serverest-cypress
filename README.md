@@ -49,11 +49,11 @@ Abstração de comportamentos repetitivos para tornar os testes mais limpos, leg
 
 ## ✅ Data-Driven Testing
 
-Gerenciamento de massa de dados através de `fixtures`, permitindo testes parametrizados e maior flexibilidade.
+Gerenciamento de massa de dados através de `factories`, permitindo testes parametrizados e maior flexibilidade.
 
 ---
 
-## ✅ Assertions BDD
+## ✅ Assertions
 
 Escrita de assertions claras e semânticas para facilitar entendimento e manutenção dos testes.
 
@@ -73,10 +73,9 @@ https://front.serverest.dev/
 Validação do fluxo crítico de registro de usuários.
 
 ### Cobertura:
-- cadastro com sucesso
-- validação de mensagens
-- validação de redirecionamento
-- persistência do usuário
+- cadastro de usuário final
+- cadastro de usuário administrador
+- validação de mensagens de erro por campos obrigatórios não preenchidos
 
 ---
 
@@ -85,10 +84,8 @@ Validação do fluxo crítico de registro de usuários.
 Validação de fluxo de autenticação da aplicação.
 
 ### Cobertura:
-- login válido
-- controle de sessão
-- validação de autenticação
-- acesso às funcionalidades protegidas
+- login utilizando credenciais válidas
+- login utilizando credenciais inválidas
 
 ---
 
@@ -99,10 +96,8 @@ Observação:
 A funcionalidade completa de conversão da lista em carrinho/checkout ainda apresenta comportamento inconsistente na aplicação ServeRest, portanto os cenários foram adaptados para validar integralmente o fluxo atualmente funcional da aplicação.
 
 ### Cobertura:
-- adicionar produto
-- validar carrinho
-- validar quantidade
-- finalizar compra
+- adicionar produto a lista
+- limpar lista de produtos
 
 ---
 
@@ -143,10 +138,28 @@ Validação de endpoints protegidos de produtos.
 ### Cobertura:
 - criação autenticada
 - listagem de produtos
-- validação de payload
-- validação de autorização
 
 ---
+
+# 💻 Clonando projeto
+
+1. Clone o repositório para a sua máquina:
+```bash
+git clone https://github.com/leoBarrosDev/mouts-qa.git
+```
+2. Acesse a pasta do projeto:
+```bash
+cd mouts-qa
+```
+3. Instale as dependências do projeto:
+```bash
+npm install
+```
+4. Inicie o Cypress na interface gráfica:
+```bash
+npx cypress open
+```
+5. No Cypress Test Runner, selecione o arquivo de teste ou a pasta desejada para executar os cenários.
 
 # 📁 Arquitetura do Projeto
 
@@ -154,16 +167,22 @@ Validação de endpoints protegidos de produtos.
 cypress/
 │
 ├── e2e/
-│   ├── frontend/
-│   └── api/
-│
-├── fixtures/
-│
+│   ├── api/
+│   └── frontend/
+├── screenshots/
 ├── support/
+│   ├── constants/
+│   ├── factories/
 │   ├── pages/
 │   ├── services/
-│   └── commands.js
+│   ├── commands.js
+│   └── e2e.js
+├── videos/
+node_modules/
 │
+├── .gitignore
 ├── cypress.config.js
+├── package-lock.json
 ├── package.json
-└── README.md
+├── README.md
+└── styles.css
