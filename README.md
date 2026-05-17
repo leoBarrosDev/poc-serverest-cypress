@@ -163,7 +163,7 @@ Caso queira executar os testes, mas não em modo gráfico, basta executar o coma
 ```bash
 npx cypress run
 ```
-![Testes executados pelo terminal](../mouts-qa/cypress/support/images/npxCypressRun.jpeg)
+![Testes executados pelo terminal](./cypress/support/images/npxCypressRun.jpeg)
 
 
 5. No Cypress Test Runner, selecione o arquivo de teste ou a pasta desejada para executar os cenários.
@@ -190,8 +190,8 @@ Este projeto conta com uma esteira de Integração Contínua (CI) via **GitHub A
 
 > **Nota sobre a execução em CI:** Como os testes são validados em um ambiente público de testes simulados (amplamente utilizado pela comunidade), o servidor alvo pode apresentar lentidão ou variações de resposta sob carga severa. Isso pode ocasionalmente gerar falhas intermitentes (*flakiness*) na esteira do GitHub Actions devido a *timeouts* de rede, embora a suíte de testes permaneça estável e com taxa de 100% de sucesso em execuções locais. Com o objetivo de mitigar esse problema a esteira está configurada para que uma segunda tentativa seja executada em caso de falha, isso não se aplica para execuções locais.
 
-![Testes executados via CI](../mouts-qa/cypress/support/images/gitHubActions.jpeg)
-![Testes executados via CI](../mouts-qa/cypress/support/images/configRetry.jpeg)
+![Testes executados via CI](./cypress/support/images/gitHubActions.jpeg)
+![Testes executados via CI](./cypress/support/images/configRetry.jpeg)
 
 ---
 
