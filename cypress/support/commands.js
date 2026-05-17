@@ -66,3 +66,36 @@ Cypress.Commands.add('createAdminUser', (isAdmin = true) => {
       }
     })
 })
+
+Cypress.Commands.add('createProductViaAPI', (email, password, productName) => {
+  // ensure product name is unique to avoid "Já existe produto com esse nome" errors
+  const productNome = productName ? `${productName} ${Date.now()}` : `${faker.commerce.product()} ${Date.now()}`
+
+  return AuthService
+    .login(email, password)
+    .then((response) => {
+      const token = response.body.authorization
+      return cy.request({
+        method: 'POST',
+        url: `${API_URL}/produtos`,
+        headers: {
+          // provide token in common header names to match API expectations
+          Authorization: token,
+          authorization: token
+        },
+        body: {
+          nome: productNome,
+          preco: 100,
+          descricao: 'Produto criado via API para teste E2E',
+          quantidade: 10
+        }
+      })
+    })
+    .then((response) => {
+      expect(response.status).to.eq(201)
+      expect(response.body.message).to.eq('Cadastro realizado com sucesso')
+      expect(response.body._id).to.not.be.empty
+      return response.body
+      
+    })
+})
