@@ -73,8 +73,7 @@ https://front.serverest.dev/
 Validação do fluxo crítico de registro de usuários.
 
 ### Cobertura:
-- cadastro de usuário final
-- cadastro de usuário administrador
+- cadastro de usuário
 - validação de mensagens de erro por campos obrigatórios não preenchidos
 
 ---
@@ -86,6 +85,7 @@ Validação de fluxo de autenticação da aplicação.
 ### Cobertura:
 - login utilizando credenciais válidas
 - login utilizando credenciais inválidas
+- login com usuário inexistente
 
 ---
 
@@ -98,6 +98,7 @@ A funcionalidade completa de conversão da lista em carrinho/checkout ainda apre
 ### Cobertura:
 - adicionar produto a lista
 - limpar lista de produtos
+- fluxo de criação de usuário e produto integrando backend e frontend
 
 ---
 
@@ -113,8 +114,8 @@ https://serverest.dev/
 Validação de autenticação via API.
 
 ### Cobertura:
-- login
-- extração de bearer token
+- login válido
+- login com credenciais inválidas (teste sendo ignorado pois o retorno da API está em desacordo)
 - validação de retorno
 
 ---
@@ -138,6 +139,8 @@ Validação de endpoints protegidos de produtos.
 ### Cobertura:
 - criação autenticada
 - listagem de produtos
+- criação d eprodutos sem autorização
+- criação de produtos com token inválido
 
 ---
 
@@ -189,6 +192,21 @@ Nenhum dos dois diretórios acima estão sendo enviados para o repositório remo
 Este projeto conta com uma esteira de Integração Contínua (CI) via **GitHub Actions** que executa a suíte de testes automaticamente a cada push/pull request, submetidos as branchs main e develop.
 
 > **Nota sobre a execução em CI:** Como os testes são validados em um ambiente público de testes simulados (amplamente utilizado pela comunidade), o servidor alvo pode apresentar lentidão ou variações de resposta sob carga severa. Isso pode ocasionalmente gerar falhas intermitentes (*flakiness*) na esteira do GitHub Actions devido a *timeouts* de rede, embora a suíte de testes permaneça estável e com taxa de 100% de sucesso em execuções locais. Com o objetivo de mitigar esse problema a esteira está configurada para que uma segunda tentativa seja executada em caso de falha, isso não se aplica para execuções locais.
+
+### Melhores práticas e critérios para retries (observação para QA Sênior)
+
+- Nâo é algo tão simples identificar quando a falha é algo apenas relacionado a ambiente, mas podemos começar avaliando timeouts de rede, erros 5xx intermitentes da API, latência elevada e falhas de infraestrutura (DNS, rate limiting) tipicamente indicam problemas ambientais.
+
+- Reproduzindo os testes localmente e em diferentes ambientes (local, staging, CI), se falha ocorrer apenas esporadicamente no CI público e não localmente, tende a ser flakiness e não necessariamente um Bug. A triagem pode contar com apoio de logs, stack traces, e evidências (screenshots/vídeo) para triagem.
+
+- Gerar dadoso e não acompanhar e metrificar também seria um erro, pensando nisso seria interessante a taxa de falha por teste ao longo do tempo, tempo médio de resposta, percentuais de testes com retries acionados, e frequência de status 5xx/4xx do serviço.
+
+- O uso das factories como ocorre no projeto é para isolar a massa de dados e tornar a mesma igualmente potente, sempre seguindo um padrão, mas não sendo a mesma
+
+- É preciso entender que não devemos fazer o uso indiscriminadamente do retry dos testes, isso pode mascarar grandes problemas. Devemos fazer uso do retry apenas para falhas não-determinísticas claramente relacionadas à infraestrutura (timeouts/transientes). Não usar retry para assertions ou comportamentos funcionais determinísticos — esses exigem investigação imediata.
+Retry pode mascarar problemas reais se não houver critérios explícitos e monitoramento. Para cada teste com retry ativado deve existir: i) justificativa documentada; ii) limite de tentativas; iii) alerta/visibilidade quando retries ocorrem frequentemente, para análise e correção da causa raiz.
+
+
 
 ![Testes executados via CI](./cypress/support/images/gitHubActions.jpeg)
 ![Testes executados via CI](./cypress/support/images/configRetry.jpeg)
