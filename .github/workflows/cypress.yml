@@ -32,9 +32,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          record: false
-          command: >
-            npm run test:api -- --browser chrome
+          command:  npm run test:api
 
       - name: Upload API test artifacts
         if: failure()
@@ -70,12 +68,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          browser: chrome
-          record: false
-          config-file: cypress.config.js
-
-          command: >
-            npm run test:frontend -- --browser chrome
+          command: npm run test:frontend
             
 
       - name: Upload frontend test artifacts

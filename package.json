@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "cypress run",
-    "test:api": "cypress run --spec 'cypress/e2e/api/*/.cy.js'",
-    "test:frontend": "cypress run --spec 'cypress/e2e/frontend/*/.cy.js'",
-    "cy:open": "cypress open"
-  },
+"scripts": {
+  "test:api": "cypress run --browser chrome --spec \"cypress/e2e/api/**/*.cy.js\"",
+  "test:frontend": "cypress run --browser chrome --spec \"cypress/e2e/frontend/**/*.cy.js\""
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leoBarrosDev/mouts-qa.git"
