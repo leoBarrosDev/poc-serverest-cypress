@@ -34,10 +34,7 @@ jobs:
           install: false
           record: false
           command: >
-            npm run test:api --
-            --reporter mochawesome
-            --reporter-options
-            reportDir=cypress/results/api,overwrite=false,html=false,json=true
+            npm run test:api -- --browser chrome
 
       - name: Upload API test artifacts
         if: failure()
@@ -78,11 +75,8 @@ jobs:
           config-file: cypress.config.js
 
           command: >
-            npm run test:frontend --
-            --browser chrome
-            --reporter mochawesome
-            --reporter-options
-            reportDir=cypress/results/frontend,overwrite=false,html=false,json=true
+            npm run test:frontend -- --browser chrome
+            
 
       - name: Upload frontend test artifacts
         if: failure()
@@ -90,5 +84,4 @@ jobs:
         with:
           name: frontend-cypress-artifacts
           path: |
-            cypress/results/frontend/**
             cypress/screenshots/**
