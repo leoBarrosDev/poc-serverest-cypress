@@ -74,20 +74,6 @@ class RegisterPage {
       .should('be.visible')
       .and('contain', errorMessage)
   }
-
-  validateEmptyEmailFieldError() {
-    this.elements
-      .errorMessageEmailFiledEmpty()
-      .should('be.visible')
-      .and('contain', 'Email é obrigatório')
-  }
-
-  validateEmptyPasswordFieldError() {
-    this.elements
-      .errorMessagePasswordFiledEmpty()
-      .should('be.visible')
-      .and('contain', 'Password é obrigatório')
-  }
 }
 
 export default new RegisterPage()
