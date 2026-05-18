@@ -1,6 +1,6 @@
 import UserFactory from '../../support/factories/UserFactory'
-import RegisterPage from '../../support/pages/RegisterPage'
-import HomePage from '../../support/pages/HomePage'
+import RegisterPage from '../../pages/RegisterPage'
+import HomePage from '../../pages/HomePage'
 
 describe('Cadastro Frontend', () => {
 
