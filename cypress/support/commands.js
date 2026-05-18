@@ -1,13 +1,21 @@
 import { faker } from '@faker-js/faker'
 import { API_URL } from './constants/api'
-import LoginPage from './pages/LoginPage'
 import AuthService from './services/AuthService'
 import UserService from './services/UsersService'
+import UserFactory from './factories/UserFactory'
+import Ajv from 'ajv'
 
+const ajv = new Ajv({ allErrors: true })
 
-Cypress.Commands.add('login', (email, password) => {
-  LoginPage.login(email, password)
+Cypress.Commands.add('validateSchema', (schema, responseBody) => {
+  const validate = ajv.compile(schema)
+  const valid = validate(responseBody)
+  if (!valid) {
+    throw new Error('Schema validation failed: ' + ajv.errorsText(validate.errors))
+  }
+  expect(valid).to.be.true
 })
+
 
 Cypress.Commands.add('interceptLogin', () => {
   cy.intercept(
@@ -31,13 +39,8 @@ Cypress.Commands.add('loginApi', (email, password) => {
 })
 
 
-Cypress.Commands.add('createFinalUser', (isAdmin = false) => {
-  const user = {
-    nome: faker.person.fullName(),
-    email: faker.internet.email(),
-    password: '123456',
-    administrador: isAdmin.toString()
-  }
+Cypress.Commands.add('createFinalUser', () => {
+  const user = UserFactory.createFinalUser()
 
   return UserService
     .create(user)
@@ -49,13 +52,8 @@ Cypress.Commands.add('createFinalUser', (isAdmin = false) => {
     })
 })
 
-Cypress.Commands.add('createAdminUser', (isAdmin = true) => {
-  const user = {
-    nome: faker.person.fullName(),
-    email: faker.internet.email(),
-    password: '123456',
-    administrador: isAdmin.toString()
-  }
+Cypress.Commands.add('createAdminUser', () => {
+  const user = UserFactory.createAdminUser()
 
   return UserService
     .create(user)
@@ -95,7 +93,13 @@ Cypress.Commands.add('createProductViaAPI', (email, password, productName) => {
       expect(response.status).to.eq(201)
       expect(response.body.message).to.eq('Cadastro realizado com sucesso')
       expect(response.body._id).to.not.be.empty
+
+      const token = response.requestHeaders ? response.requestHeaders.authorization || response.requestHeaders.Authorization : null
+      if (token) {
+        const products = Cypress.env('createdProducts') || []
+        Cypress.env('createdProducts', [...products, { id: response.body._id, token }])
+      }
+
       return response.body
-      
     })
 })
