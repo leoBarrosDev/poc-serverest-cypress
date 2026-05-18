@@ -5,7 +5,7 @@ class UserFactory {
         return {
             nome: faker.person.fullName(),
             email: faker.internet.email(),
-            password: '123456',
+            password: Cypress.env('defaultPassword') || '123456',
             administrador: 'true'
         }
     }
@@ -14,7 +14,7 @@ class UserFactory {
         return {
             nome: faker.person.fullName(),
             email: faker.internet.email(),
-            password: '123456',
+            password: Cypress.env('defaultPassword') || '123456',
             administrador: 'false'
         }
     }
