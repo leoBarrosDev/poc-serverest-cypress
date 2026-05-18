@@ -16,7 +16,8 @@ module.exports = defineConfig({
     },
 
     env: {
-      apiUrl: 'https://serverest.dev'
+      apiUrl: 'https://serverest.dev',
+      defaultPassword: '123456' // Centralizando para facilitar suporte de diferentes ambientes pelo pipeline
     },
 
     setupNodeEvents(on, config) {

@@ -9,6 +9,12 @@ class UserService {
       body: user,
       failOnStatusCode: false,
       retryOnNetworkFailure: true
+    }).then((res) => {
+      if (res.status === 201 && res.body._id) {
+        const users = Cypress.env('createdUsers') || []
+        Cypress.env('createdUsers', [...users, res.body._id])
+      }
+      return res
     })
   }
 

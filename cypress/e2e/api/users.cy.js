@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import UserFactory from '../../support/factories/UserFactory'
 import UserService from '../../support/services/UsersService'
+import { createUserSchema } from '../../support/schemas/userSchema'
 
 describe('Users API', () => {
     it('Should create final user successfully', () => {
@@ -9,10 +10,7 @@ describe('Users API', () => {
             .create(user)
             .then((response) => {
                 expect(response.status).to.eq(201)
-                expect(response.body.message)
-                    .to.eq('Cadastro realizado com sucesso')
-                expect(response.body._id)
-                    .to.not.be.empty
+                cy.validateSchema(createUserSchema, response.body)
             })
     })
 
@@ -22,10 +20,7 @@ describe('Users API', () => {
             .create(user)
             .then((response) => {
                 expect(response.status).to.eq(201)
-                expect(response.body.message)
-                    .to.eq('Cadastro realizado com sucesso')
-                expect(response.body._id)
-                    .to.not.be.empty
+                cy.validateSchema(createUserSchema, response.body)
             })
     })
 

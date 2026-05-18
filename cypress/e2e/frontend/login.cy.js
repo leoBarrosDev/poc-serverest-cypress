@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
-import HomePage from '../../support/pages/HomePage'
+import HomePage from '../../pages/HomePage'
+import LoginPage from '../../pages/LoginPage'
 
 describe('Login Frontend', () => {
 
@@ -7,7 +8,7 @@ describe('Login Frontend', () => {
     cy.createFinalUser()
       .then(({ user }) => {
         cy.interceptLogin()
-        cy.login(
+        LoginPage.login(
           user.email,
           user.password
         )
@@ -28,7 +29,7 @@ describe('Login Frontend', () => {
     cy.createAdminUser()
       .then(({ user }) => {
         cy.interceptLogin()
-        cy.login(
+        LoginPage.login(
           user.email,
           user.password
         )
@@ -50,7 +51,7 @@ describe('Login Frontend', () => {
     const password = "wrongpassword"
 
     cy.interceptLogin()
-    cy.login(
+    LoginPage.login(
       email,
       password
     )
@@ -68,7 +69,7 @@ describe('Login Frontend', () => {
     const password = faker.internet.password()
 
     cy.interceptLogin()
-    cy.login(
+    LoginPage.login(
       email,
       password
     )
