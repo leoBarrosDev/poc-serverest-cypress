@@ -143,6 +143,14 @@ Validação de endpoints protegidos de produtos.
 - criação de produtos com token inválido
 
 ---
+# 💻 Testes de API via interface gráfica
+
+Segue abaixo um link de uma colection desenvolvida no Postman, também executando testes de serviços, todos baseados na documentação fornecida pela plataforma.
+
+![Postman](./cypress/support/images/postman.jpeg)
+
+https://documenter.getpostman.com/view/18794515/2sBXqRjcb9
+---
 
 # 💻 Clonando projeto
 
