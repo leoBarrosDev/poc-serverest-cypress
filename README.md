@@ -156,7 +156,7 @@ Segue abaixo um link de uma colection desenvolvida no Postman, também executand
 # 💻 Clonando projeto
 
 Obs: É necessário que o Node e o npm estejam instalados, para descobrir se já possui, execute o comando abaixo:
-site oficial segue abaixo:
+
 ```bash
 node -v
 npm -v
