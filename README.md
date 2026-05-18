@@ -35,27 +35,27 @@ Aplicando padrões de engenharia de software que garantem:
 
 # 🏗️ Estratégia e Padrões de Projeto
 
-## ✅ Page Objects Pattern (PoP)
+A arquitetura deste projeto foi pensada não apenas para encontrar bugs, mas para atuar como um **motor de qualidade contínua**, evitando os maiores gargalos atuais do mercado de QA: manutenção cara, testes lentos e _flakiness_ (testes instáveis). Veja o "porquê" de cada escolha:
 
-Implementado para desacoplar a lógica de teste da estrutura HTML, garantindo maior manutenibilidade e reutilização de código.
+## ✅ 1. Separação Estrita de Responsabilidades (UI vs API)
+Diferente de arquiteturas altamente acopladas, aqui isolamos completamente como a aplicação é preparada vs como ela é operada:
+- **Custom Commands & API Services:** Focam puramente na orquestração pesada nos bastidores (ex: login via API e setup instantâneo de dados usando Requests).
+- **Page Objects Pattern:** Lidam exclusivamente com o comportamento final da pessoa usuária (onde ela clica e o que ela vê em tela).
+* **O que ganhamos?** Manutenção cirúrgica e código limpo no E2E (`LoginPage.login()`). Se o botão no Frontend mudar cor ou seletor, você só arruma a _Page_. Se o motor de token do Backend mudar sua estrutura de chaves, você ajusta o _Command_.
 
----
+## ✅ 2. Setup Dinâmico e Global Teardown (Sustentabilidade)
+Em nossos testes E2E, não preenchemos 10 campos de formulário na UI só para alcançar a tela que queremos testar. Consumimos as fábricas (`Factories` usando `@faker-js/faker`) para injetar o usuário ou o produto velozmente via chamadas no Backend. Contudo, gerar dados infinitos "polui" o banco.
+* **O que ganhamos (Solução)?** Os arquivos de configuração (`e2e.js`) registram cada artefato que essas fábricas de dados geram na nuvem. Ao terminar da suíte, um comando de **Global Teardown** (limpeza de base) varre a API efetuando `DELETE` automático nos dados efêmeros. O banco de dados fica 100% limpo a cada nova execução automatizada, evitando sobrecarga ou sujeira.
 
-## ✅ Custom Commands
+## ✅ 3. Testes de Contrato de API (JSON Schemas)
+Em vez de validar apenas dados literais e Status 200 nas suítes de API, os testes injetam a biblioteca poderosa `AJV`. Nós compilamos a documentação oficial da API e declaramos em forma de "Contrato" (arquivos de Schema).
+* **O que ganhamos?** Isso atesta automaticamente que os tipos de cada objeto de retorno estão íntegros e que atributos vitais não deixaram de existir do nada num deploy. Previne as temidas "Quebras Silenciosas" que as asserções comuns não pegam.
 
-Abstração de comportamentos repetitivos para tornar os testes mais limpos, legíveis e reutilizáveis.
+## ✅ 4. Data-Driven Testing
+Gerenciamento de massa de dados isoladas através de objetos. Permite parametrização de testes complexos sem "chumbamento" ou engessamento de credenciais.
 
----
-
-## ✅ Data-Driven Testing
-
-Gerenciamento de massa de dados através de `factories`, permitindo testes parametrizados e maior flexibilidade.
-
----
-
-## ✅ Assertions
-
-Escrita de assertions claras e semânticas para facilitar entendimento e manutenção dos testes.
+## ✅ 5. Assertions Semânticas
+Uso forte do ecosistema BDD (`expect(x).to.be`) e aliasing em promessas (fugindo do "callback hell") para que até perfis de negócio e Product Owners entendam o que está sendo exigido no comportamento da plataforma.
 
 ---
 
@@ -153,46 +153,52 @@ Segue abaixo um link de uma colection desenvolvida no Postman, também executand
 
 ---
 
-# 💻 Clonando projeto
+# 💻 Instalação Descomplicada (Guia Passo a Passo)
 
-Obs: É necessário que o Node e o npm estejam instalados, para descobrir se já possui, execute o comando abaixo:
+Preparamos uma autêntica "receita de bolo" caso este seja seu primeiro contato técnico com repositórios.
 
-```bash
-node -v
-npm -v
-```
-O resultado deve ser semelhante a imagem abaixo:
-![Versões instaladas](./cypress/support/images/nodeAndNpm.jpeg)
+### 📝 Pré-requisitos
+Para abrir a "cozinha", você precisará ter 2 ferramentas globais instaladas em seu computador:
+1. O **Node.js** (que processa a automação) e o **NPM** (seu gerenciador de pacotes).
+   - *Verifique se possui digitando os comandos abaixo no seu Terminal (Prompt de Comando ou Bash)*:
+   ```bash
+   node -v
+   npm -v
+   ```
+   *Se os resultados retornarem a numeração de uma versão (como v18.2.0), você já está pronto! Do contrário, [baixe ambos no site oficial clicando aqui](https://nodejs.org/pt-br/download).*
 
-Caso não tenha, faça o download pelo site oficial
+2. O **Git** (para baixar estruturalmente nosso projeto).
 
-https://nodejs.org/pt-br/download
+---
 
+### 🚀 Rodando o Projeto do Zero
 
-1. Clone o repositório para a sua máquina:
+Com o Node instalado, abra o seu Terminal favorito e digite exatamente os passos a seguir, aguardando o processamento de cada linha:
+
+**Passo 1:** Faça o download (clone) da pasta do projeto para a sua máquina:
 ```bash
 git clone https://github.com/leoBarrosDev/mouts-qa.git
 ```
-2. Acesse a pasta do projeto:
+
+**Passo 2:** Feito o clone, solicite entrada dentro da pasta que criamos:
 ```bash
 cd mouts-qa
 ```
-3. Instale as dependências do projeto:
+
+**Passo 3:** Solicite ao NPM para buscar e instalar em massa todos os pacotes das tecnologias que usamos localmente (como o Faker, AJV e o motor base do Cypress):
 ```bash
 npm install
 ```
-4. Inicie o Cypress na interface gráfica:
+
+**Passo 4:** Maravilha! Projeto instalado. Agora ordene a abertura gráfica dos testes:
 ```bash
 npx cypress open
 ```
-Caso queira executar os testes, mas não em modo gráfico, basta executar o comando abaixo:
-```bash
-npx cypress run
-```
-![Testes executados pelo terminal](./cypress/support/images/npxCypressRun.jpeg)
 
+No painel (Cypress Runner) que acabou de abrir, selecione a opção **E2E Testing**, escolha o seu navegador preferido (ex: **Chrome**) e aperte no arquivo do cenário que quer ver a mágica atuar (ex: `login.cy.js` ou até rodar a pasta inteira).
 
-5. No Cypress Test Runner, selecione o arquivo de teste ou a pasta desejada para executar os cenários.
+> 💡 **Quer uma dica extra? Modo Terminal (Para Pipelines e Servidores)**
+> Execute `npm run test:api` ou `npx cypress run` para analisar a velocidade de execução da suíte escondida, correndo em retaguarda de memória bruta para relatórios finos.
 
 ---
 
