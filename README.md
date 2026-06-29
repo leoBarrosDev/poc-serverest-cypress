@@ -177,7 +177,7 @@ Com o Node instalado, abra o seu Terminal favorito e digite exatamente os passos
 
 **Passo 1:** Faça o download (clone) da pasta do projeto para a sua máquina:
 ```bash
-git clone https://github.com/leoBarrosDev/mouts-qa.git
+git clone https://github.com/leoBarrosDev/poc-serverest-cypress.git
 ```
 
 **Passo 2:** Feito o clone, solicite entrada dentro da pasta que criamos:
