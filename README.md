@@ -185,6 +185,11 @@ git clone https://github.com/leoBarrosDev/poc-serverest-cypress.git
 cd poc-serverest-cypress
 ```
 
+**Observação:** Caso não consiga visualizar nenhum arquivo dentro do diretório do projeto mesmo não acusando nenhum problema durante a clonagem, é provável que o Git no Windows se recuse a criar arquivos com esse caractere no nome para proteger o sistema, interrompendo o checkout. O comando pode dizer ao Git para ignorar temporariamente essa proteção de caminhos e forçar o checkout. Portanto você pode dizer ao Git para ignorar temporariamente essa proteção de caminhos e forçar o checkout com o comando abaixo
+```bash
+git config core.protectNTFS false
+```
+
 **Passo 3:** Solicite ao NPM para buscar e instalar em massa todos os pacotes das tecnologias que usamos localmente (como o Faker, AJV e o motor base do Cypress):
 ```bash
 npm install
