@@ -182,7 +182,7 @@ git clone https://github.com/leoBarrosDev/mouts-qa.git
 
 **Passo 2:** Feito o clone, solicite entrada dentro da pasta que criamos:
 ```bash
-cd mouts-qa
+cd poc-serverest-cypress
 ```
 
 **Passo 3:** Solicite ao NPM para buscar e instalar em massa todos os pacotes das tecnologias que usamos localmente (como o Faker, AJV e o motor base do Cypress):
